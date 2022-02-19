@@ -78,9 +78,13 @@ StateMachine.call("some_method", [my_arguments])
 
 `_state_exit()` will be called when the state is left (each time)
 
+If the following variables exist on your state, they will be injected with dependencies as follows:
+
 `Parent` is the parent of `StateMachine` i.e. your character controller
 
 `States` is the `StateMachine`
+
+If they do not exist on your state, nothing will be injected.
 
 # Signals
 
