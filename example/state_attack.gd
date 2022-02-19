@@ -8,8 +8,8 @@ var Parent
 var States
 
 
-func _state_enter():
-	print("Attack state entered")
+func _state_enter(who_to_attack: String):
+	print("Attack state entered, attacking %s" % who_to_attack)
 
 	yield(get_tree().create_timer(3), "timeout")
 

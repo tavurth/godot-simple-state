@@ -43,7 +43,7 @@ func goto(state: String, args = null):
 		push_error("Could not find state %s in state list" % state)
 		return
 	
-	self.call("_state_exit", args)
+	self.call("_state_exit")
 
 	self.remove_child(states[current])
 	self.current = state
