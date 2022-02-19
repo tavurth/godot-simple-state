@@ -72,6 +72,26 @@ StateMachine.call("some_method", my_argument)
 StateMachine.call("some_method", [my_arguments])
 ```
 
+### `now(state: String)`
+
+Returns true if the current state matches `state`
+
+```gdscript
+if States.now("afraid"):
+    # keep running away instead of stopping to look at something
+```
+
+### `restart(arg: any or none)`
+
+Restarts the current state
+This only calls "\_state_enter" again
+it does not reset any variables
+
+```gdscript
+if States.is("afraid"):
+    # keep running away instead of stopping to look at something
+```
+
 ## State
 
 `_state_enter(args or not)` will be called when the state is entered (each time)

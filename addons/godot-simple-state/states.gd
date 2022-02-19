@@ -12,6 +12,25 @@ func _ready():
 	self.setup()
 
 
+func now(state: String):
+	"""
+	Simpler helper so you can do things like
+
+	if States.now("afraid"):
+		pass
+	"""
+	return current == state
+
+
+func restart(arg = null):
+	"""
+	Restarts the current state
+	This only calls "_state_enter" again
+	it does not reset any variables
+	"""
+	self.call("_state_enter", arg)
+
+
 func setup():
 	"""
 	Removes all child states and saves them to our state map
@@ -30,8 +49,8 @@ func setup():
 		if child.name != current:
 			self.remove_child(child)
 
-	self.call("_state_enter")
 
+	self.restart()
 
 func goto(state: String, args = null):
 	"""
@@ -42,7 +61,7 @@ func goto(state: String, args = null):
 	if not state in states:
 		push_error("Could not find state %s in state list" % state)
 		return
-	
+
 	self.call("_state_exit")
 
 	if len(current):
@@ -50,7 +69,7 @@ func goto(state: String, args = null):
 
 	self.current = state
 	self.add_child(states[current])
-	
+
 	self.call("_state_enter", args)
 
 
@@ -65,12 +84,12 @@ func call(method: String, args = null):
 	if not len(current) or not current in states:
 		return
 
-	if not states[current].has_method(method): 
+	if not states[current].has_method(method):
 		return
-	
+
 	if args != null:
 		return states[current].call(method, args)
-	
+
 	else:
 		return states[current].call(method)
 
