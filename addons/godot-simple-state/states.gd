@@ -67,10 +67,7 @@ func call(method: String, args = null):
 		return
 	
 	if args != null:
-		if typeof(args) ==TYPE_ARRAY:
-			return states[current].callv(method, args)
-		else:
-			return states[current].call(method, args)
+		return states[current].call(method, args)
 	
 	else:
 		return states[current].call(method)

@@ -13,7 +13,7 @@ func _state_enter():
 
 	yield(get_tree().create_timer(3), "timeout")
 
-	States.goto("attack", "who_to_attack")
+	States.goto("attack", ["bob", "ben"])
 
 
 func _state_exit():

@@ -34,7 +34,7 @@ extends Node2D
 var Parent
 var States
 
-func _state_enter():
+func _state_enter(arg or not):
     pass
 
 func _state_exit():
@@ -49,7 +49,7 @@ func _state_exit():
 
 `args` can be `String` `Array` or `undefined`
 
-When array is used, the arguments will be spread over the function parameters.
+When an arg is passed, the argument will be pushed to the `_state_enter` function.
 
 ```gdscript
 StateMachine.goto("attack")
@@ -60,7 +60,7 @@ StateMachine.goto("attack", [some_character_a, some_character_b])
 The last example would call this function in the `attack`state:
 
 ```gdscript
-func _state_enter(some_character_a, some_character_b):
+func _state_enter(some_characters: Array):
     ...
 ```
 
