@@ -15,7 +15,7 @@
 <img width="343" alt="Screenshot 2022-02-19 at 12 36 30" src="https://user-images.githubusercontent.com/100964/154795416-322c85d7-8557-42a3-9b49-e3607a798512.png">
 
 7.  Attach a script to the node
-8.  Now at runtime you can change to a different state using `$StateMachine.godot("state")`
+8.  Now at runtime you can change to a different state using `$StateMachine.goto("state")`
 
 # Example
 
