@@ -26,6 +26,6 @@ The project will switch between each state automatically every 3 seconds.
 
 You can connect signals directly to the `StateMachine` node using the following style:
 
-![telegram-cloud-photo-size-2-5226866687339510102-y](https://user-images.githubusercontent.com/100964/154796186-b22ba3f3-656b-476f-8e4e-801cc351166a.jpg)
+<img width="500" alt="Screenshot 2022-02-19 at 13 00 38" src="https://user-images.githubusercontent.com/100964/154796280-646ee238-583e-4688-b279-304023140a54.png">
 
 They will be then automatically sent to the current active state if that state has the handler function defined.
