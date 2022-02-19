@@ -1,6 +1,11 @@
-# Table of Contents
+# Godot Simple State
 
-1.  [Usage](#org4aefb14)
+A clean and easy to use Finite State Machine (FSM) for Godot 3.x
+
+[![img](https://awesome.re/mentioned-badge.svg)](https://github.com/godotengine/awesome-godot)
+![img](https://img.shields.io/github/license/tavurth/godot-simple-state.svg)
+![img](https://img.shields.io/github/repo-size/tavurth/godot-simple-state.svg)
+![img](https://img.shields.io/github/languages/code-size/tavurth/godot-simple-state.svg)
 
 <a id="org4aefb14"></a>
 
