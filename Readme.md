@@ -94,3 +94,5 @@ You can connect signals directly to the `StateMachine` node using the following 
 <img width="1024" alt="Screenshot 2022-02-19 at 13 00 38" src="https://user-images.githubusercontent.com/100964/154796280-646ee238-583e-4688-b279-304023140a54.png">
 
 They will be then automatically sent to the current active state if that state has the handler function defined.
+
+<a href="https://www.buymeacoffee.com/tavurth" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
