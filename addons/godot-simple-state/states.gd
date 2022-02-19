@@ -3,7 +3,7 @@ extends Node
 onready var _Parent = get_parent()
 
 var allowed: Dictionary = {}
-export(String) var current: String = "idle"
+export(String) var current: String = ""
 
 var states = {}
 
@@ -45,7 +45,9 @@ func goto(state: String, args = null):
 	
 	self.call("_state_exit")
 
-	self.remove_child(states[current])
+	if len(current):
+		self.remove_child(states[current])
+
 	self.current = state
 	self.add_child(states[current])
 	
@@ -60,7 +62,7 @@ func call(method: String, args = null):
 	 - Array argument (spread over function)
 	 - No argument
 	"""
-	if not current in states:
+	if not len(current) or not current in states:
 		return
 
 	if not states[current].has_method(method): 
