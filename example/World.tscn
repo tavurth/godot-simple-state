@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://example/state_idle.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-simple-state/States.gd" type="Script" id=2]
+[ext_resource path="res://example/state_attack.gd" type="Script" id=3]
+[ext_resource path="res://example/Character.gd" type="Script" id=4]
+
+[node name="World" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Character" type="Control" parent="CenterContainer"]
+margin_left = 512.0
+margin_top = 300.0
+margin_right = 512.0
+margin_bottom = 300.0
+script = ExtResource( 4 )
+
+[node name="StateMachine" type="Node" parent="CenterContainer/Character"]
+script = ExtResource( 2 )
+
+[node name="idle" type="Node2D" parent="CenterContainer/Character/StateMachine"]
+script = ExtResource( 1 )
+
+[node name="attack" type="Node2D" parent="CenterContainer/Character/StateMachine"]
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="CenterContainer/Character"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
