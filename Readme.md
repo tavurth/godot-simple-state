@@ -57,7 +57,7 @@ StateMachine.goto("attack", some_character)
 StateMachine.goto("attack", [some_character_a, some_character_b])
 ```
 
-The last example would call this function in the `attack`state:
+The last example would call this function in the `attack` state:
 
 ```gdscript
 func _state_enter(some_characters: Array):
@@ -74,7 +74,8 @@ StateMachine.call("some_method", [my_arguments])
 
 ## State
 
-`_state_enter(args = null)` will be called when the state is entered (each time)
+`_state_enter(args or not)` will be called when the state is entered (each time)
+An argument is only passed if one was passed. (`StateMachine.goto("state", arg)`)
 
 `_state_exit()` will be called when the state is left (each time)
 
