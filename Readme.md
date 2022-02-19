@@ -45,6 +45,10 @@ func _state_exit():
 
 ## StateMachine
 
+### `signal` `state_changed(new_state)`
+
+Emitted whenever the `StateMachine` changes state (but before `_state_enter` is called)
+
 ### `goto(state_name: String, args = null)` change the state
 
 `args` can be any or `undefined`

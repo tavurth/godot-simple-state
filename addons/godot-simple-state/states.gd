@@ -1,11 +1,18 @@
 extends Node
 
+signal state_changed(new_state)
+
 onready var _Parent = get_parent()
 
 var allowed: Dictionary = {}
+export(bool) var logging: bool = false
 export(String) var current: String = ""
 
 var states = {}
+
+
+func logger(to_log: String):
+	print("[SimpleState]: %s, %s" % [_Parent.name, to_log])
 
 
 func _ready():
@@ -62,12 +69,19 @@ func goto(state: String, args = null):
 		push_error("Could not find state %s in state list" % state)
 		return
 
+	# Don't change state to the same state
+	if state == current:
+		return
+
 	self.call("_state_exit")
 
 	if len(current):
+		self.logger("Exiting state %s" % current)
 		self.remove_child(states[current])
 
 	self.current = state
+	self.emit_signal("state_changed", current)
+	self.logger("Entering state %s" % current)
 	self.add_child(states[current])
 
 	self.call("_state_enter", args)
@@ -87,6 +101,7 @@ func call(method: String, args = null):
 	if not states[current].has_method(method):
 		return
 
+	self.logger("Calling %s" % method)
 	if args != null:
 		return states[current].call(method, args)
 
