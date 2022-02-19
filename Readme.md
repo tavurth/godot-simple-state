@@ -8,10 +8,12 @@
 
 1.  Install the plugin
 2.  Enable the plugin
-3.  Add a \`SateMachine\` node to your character
+3.  Add a `SateMachine` node to your character
+
     <img width="342" alt="Screenshot 2022-02-19 at 12 36 45" src="https://user-images.githubusercontent.com/100964/154795429-effb016d-1d2b-4719-b4f9-8dc14f6e23c1.png">
 
-4.  Add any type of \`Node\` to the \`StateMachine\` as a child to create a new script
+4.  Add any type of `Node` to the `StateMachine` as a child to create a new script
+
     <img width="343" alt="Screenshot 2022-02-19 at 12 36 30" src="https://user-images.githubusercontent.com/100964/154795416-322c85d7-8557-42a3-9b49-e3607a798512.png">
 
 5.  Attach a script to the node
