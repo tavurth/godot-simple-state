@@ -47,7 +47,7 @@ func _state_exit():
 
 ### `goto(state_name: String, args = null)` change the state
 
-`args` can be `String` `Array` or `undefined`
+`args` can be any or `undefined`
 
 When an arg is passed, the argument will be pushed to the `_state_enter` function.
 
