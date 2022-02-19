@@ -12,6 +12,7 @@ var states = {}
 
 
 func logger(to_log: String):
+	if not logging: return
 	print("[SimpleState]: %s, %s" % [_Parent.name, to_log])
 
 
