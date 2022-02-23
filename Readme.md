@@ -46,6 +46,13 @@ func _state_exit():
     pass
 ```
 
+If you call `yield` in `_state_exit` the `StateMachine` will wait for your `yield` to finish before entering the new state.
+
+```gdscript
+func _state_exit():
+    yield(get_tree().create_timer(1), "timeout")
+```
+
 # Reference
 
 ## StateMachine

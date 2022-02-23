@@ -74,7 +74,12 @@ func goto(state: String, args = null):
 	if state == current:
 		return
 
-	self.call("_state_exit")
+	var exiting = self.call("_state_exit")
+
+	# If we yielded in _state_exit
+	# Wait for that yield to complete
+	if exiting is GDScriptFunctionState:
+		yield(exiting, "completed")
 
 	if len(current):
 		self.logger("Exiting state %s" % current)
