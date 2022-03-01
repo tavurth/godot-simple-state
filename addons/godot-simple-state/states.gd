@@ -21,13 +21,17 @@ func _ready():
 
 
 func _exit_tree():
-	self.call("_state_exit")
 	if current in states:
 		self.remove_child(states[current])
-	self.current = "_exit"
+
+	self.call("_state_exit")
 
 	for state in states:
-		states[state].queue_free()
+		if states[state]:
+			states[state].queue_free()
+
+	states = {}
+	self.current = "_exit"
 
 
 func is_current():
