@@ -20,6 +20,23 @@ func _ready():
 	self.setup()
 
 
+func _exit_tree():
+	self.call("_state_exit")
+	self.remove_child(states[current])
+	self.current = "_exit"
+
+	for state in states:
+		states[state].queue_free()
+
+
+func is_current():
+	"""
+	Returns true when called from the current running state
+	Returns false from any other state
+	"""
+	return get_stack()[1].source == states[current].script.get_path()
+
+
 func now(state: String):
 	"""
 	Simpler helper so you can do things like

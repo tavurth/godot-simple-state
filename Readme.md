@@ -53,6 +53,13 @@ func _state_exit():
     yield(get_tree().create_timer(1), "timeout")
 ```
 
+### Note: Exit state
+
+`state` will change to `_exit` when the state machine is exiting.
+Your state will also be queue-freed.
+
+If running a long while loop in your state logic, be sure to check for `States.is_current()`
+
 # Reference
 
 ## StateMachine
@@ -95,6 +102,16 @@ Returns true if the current state matches `state`
 ```gdscript
 if States.now("afraid"):
     # keep running away instead of stopping to look at something
+```
+
+### `is_current()`
+
+Returns true only when called from a function inside the current state
+
+```gdscript
+if States.is_current():
+    This can only be printed in the current state
+    In any other state this will never be printed
 ```
 
 ### `restart(arg: any or none)`
