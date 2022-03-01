@@ -22,7 +22,8 @@ func _ready():
 
 func _exit_tree():
 	self.call("_state_exit")
-	self.remove_child(states[current])
+	if current in states:
+		self.remove_child(states[current])
 	self.current = "_exit"
 
 	for state in states:
