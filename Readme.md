@@ -104,6 +104,15 @@ if States.now("afraid"):
     # keep running away instead of stopping to look at something
 ```
 
+### `has(state: String)`
+
+Returns true if <state> exists in our state tree
+
+```gdscript
+if States.has("some-other-state"):
+    # Do something
+```
+
 ### `is_current()`
 
 Returns true only when called from a function inside the current state

@@ -11,16 +11,16 @@ export(String) var current: String = ""
 var states = {}
 
 
-func logger(to_log: String):
+func logger(to_log: String) -> void:
 	if not logging: return
-	print("[SimpleState]: %s, %s" % [_Parent.name, to_log])
+	print("[SimpleState]: <%s>, <%s>" % [_Parent.name, to_log])
 
 
-func _ready():
+func _ready() -> void:
 	self.setup()
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	if current in states:
 		self.remove_child(states[current])
 
@@ -34,15 +34,24 @@ func _exit_tree():
 	self.current = "_exit"
 
 
-func is_current():
+func is_current() -> bool:
 	"""
 	Returns true when called from the current running state
 	Returns false from any other state
 	"""
-	return get_stack()[1].source == states[current].script.get_path()
+	var stack = get_stack()
+	if len(stack) < 2: return false
+	return stack[1].source == states[current].script.get_path()
 
 
-func now(state: String):
+func has(state: String) -> bool:
+	"""
+	Returns true if the <state> exists in our states set
+	"""
+	return state in states
+
+
+func now(state: String) -> bool:
 	"""
 	Simpler helper so you can do things like
 
@@ -61,7 +70,7 @@ func restart(arg = null):
 	self.call("_state_enter", arg)
 
 
-func setup():
+func setup() -> void:
 	"""
 	Removes all child states and saves them to our state map
 	We will then mount the current state so it can still receive
@@ -82,14 +91,15 @@ func setup():
 
 	self.restart()
 
-func goto(state: String, args = null):
+
+func goto(state: String, args = null) -> void:
 	"""
 	Changes to another state
 	If a state is loaded it will first call "_state_exit"
 	The loaded state will enter with "_state_enter"
 	"""
 	if not state in states:
-		push_error("Could not find state %s in state list" % state)
+		push_error("Could not find state <%s> in state list" % state)
 		return
 
 	# Don't change state to the same state
@@ -104,12 +114,12 @@ func goto(state: String, args = null):
 		yield(exiting, "completed")
 
 	if len(current):
-		self.logger("Exiting state %s" % current)
+		self.logger("Exiting state <%s>" % current)
 		self.remove_child(states[current])
 
 	self.current = state
 	self.emit_signal("state_changed", current)
-	self.logger("Entering state %s" % current)
+	self.logger("Entering state <%s>" % current)
 	self.add_child(states[current])
 
 	self.call("_state_enter", args)
@@ -129,7 +139,7 @@ func call(method: String, args = null):
 	if not states[current].has_method(method):
 		return
 
-	self.logger("Calling %s" % method)
+	self.logger("Calling <%s>" % method)
 	if args != null:
 		return states[current].call(method, args)
 
