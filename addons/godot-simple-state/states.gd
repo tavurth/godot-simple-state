@@ -102,9 +102,9 @@ func goto(state: String, args = null) -> void:
 		push_error("Could not find state <%s> in state list" % state)
 		return
 
-	# Don't change state to the same state
+	# Restart the state if we are asked to change to the same
 	if state == current:
-		return
+		return self.restart(args)
 
 	var exiting = self.call("_state_exit")
 
