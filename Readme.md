@@ -46,11 +46,12 @@ func _state_exit():
     pass
 ```
 
-If you call `yield` in `_state_exit` the `StateMachine` will wait for your `yield` to finish before entering the new state.
+If you call `await` in `_state_exit` the `StateMachine` will wait for your `await` to finish before entering the new state.
+This is also true for `_state_enter` or other state functions.
 
 ```gdscript
 func _state_exit():
-    yield(get_tree().create_timer(1), "timeout")
+    await get_tree().create_timer(1).timeout
 ```
 
 ### Note: Exit state

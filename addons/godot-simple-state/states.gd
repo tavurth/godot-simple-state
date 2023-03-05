@@ -24,7 +24,7 @@ func _exit_tree() -> void:
 	if current in states:
 		self.remove_child(states[current])
 
-	self.caller("_state_exit")
+	await self.caller("_state_exit")
 
 	for state in states:
 		if states[state]:
@@ -67,7 +67,7 @@ func restart(arg = null):
 	This only calls "_state_enter" again
 	it does not reset any variables
 	"""
-	self.caller("_state_enter", arg)
+	await self.caller("_state_enter", arg)
 
 
 func setup() -> void:
@@ -117,7 +117,7 @@ func goto(state: String, args = null) -> void:
 	self.logger("Entering state <%s>" % current)
 	self.add_child(states[current])
 
-	self.caller("_state_enter", args)
+	await self.caller("_state_enter", args)
 
 
 func caller(method: String, args = null):
