@@ -11,7 +11,7 @@ var States
 func _state_enter():
 	print("Idle state entered")
 
-	yield(get_tree().create_timer(3), "timeout")
+	await get_tree().create_timer(1).timeout
 
 	States.goto("attack", ["bob", "ben"])
 
@@ -21,5 +21,5 @@ func _state_exit():
 
 
 func _physics_process(_delta):
-	if Engine.get_idle_frames() % 40 == 0:
+	if Engine.get_process_frames() % 40 == 0:
 		print("In Idle state")

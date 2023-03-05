@@ -2,11 +2,11 @@ extends Node
 
 signal state_changed(new_state)
 
-onready var _Parent = get_parent()
+@onready var _Parent = get_parent()
 
 var allowed: Dictionary = {}
-export(bool) var logging: bool = false
-export(String) var current: String = ""
+@export var logging := false
+@export var current := ""
 
 var states = {}
 
@@ -16,7 +16,7 @@ func logger(to_log: String) -> void:
 	print("[SimpleState]: <%s>, <%s>" % [_Parent.name, to_log])
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	self.setup()
 
 
@@ -24,7 +24,7 @@ func _exit_tree() -> void:
 	if current in states:
 		self.remove_child(states[current])
 
-	self.call("_state_exit")
+	self.caller("_state_exit")
 
 	for state in states:
 		if states[state]:
@@ -67,7 +67,7 @@ func restart(arg = null):
 	This only calls "_state_enter" again
 	it does not reset any variables
 	"""
-	self.call("_state_enter", arg)
+	self.caller("_state_enter", arg)
 
 
 func setup() -> void:
@@ -106,12 +106,7 @@ func goto(state: String, args = null) -> void:
 	if state == current:
 		return self.restart(args)
 
-	var exiting = self.call("_state_exit")
-
-	# If we yielded in _state_exit
-	# Wait for that yield to complete
-	if exiting is GDScriptFunctionState:
-		yield(exiting, "completed")
+	var exiting = await self.caller("_state_exit")
 
 	if len(current):
 		self.logger("Exiting state <%s>" % current)
@@ -122,10 +117,10 @@ func goto(state: String, args = null) -> void:
 	self.logger("Entering state <%s>" % current)
 	self.add_child(states[current])
 
-	self.call("_state_enter", args)
+	self.caller("_state_enter", args)
 
 
-func call(method: String, args = null):
+func caller(method: String, args = null):
 	"""
 	Call a method on the current state with arguments
 	Accepts:
@@ -141,14 +136,14 @@ func call(method: String, args = null):
 
 	self.logger("Calling <%s>" % method)
 	if args != null:
-		return states[current].call(method, args)
+		return await Callable(states[current], method).call(args)
 
 	else:
-		return states[current].call(method)
+		return await Callable(states[current], method).call()
 
 func _call(args, method: String):
 	"""
 	Inbound hook for attaching signals
 	Bind the custom method name
 	"""
-	return self.call(method, args)
+	return await self.caller(method, args)
