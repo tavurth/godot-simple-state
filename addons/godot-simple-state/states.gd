@@ -2,18 +2,20 @@ extends Node
 
 signal state_changed(new_state)
 
-@onready var _Parent = get_parent()
-
 var allowed: Dictionary = {}
+@export var host: NodePath
 @export var logging := false
 @export var current := ""
 
 var states = {}
 
+func get_host() -> Node:
+	return get_node(host)
+
 
 func logger(to_log: String) -> void:
 	if not logging: return
-	print("[SimpleState]: <%s>, <%s>" % [_Parent.name, to_log])
+	print("[SimpleState]: <%s>, <%s>" % [get_host().name, to_log])
 
 
 func _enter_tree() -> void:
@@ -82,8 +84,14 @@ func setup() -> void:
 		if "States" in child:
 			child.States = self
 
-		if "Parent" in child:
-			child.Parent = _Parent
+		if "states" in child:
+			child.states = self
+
+		if "Host" in child:
+			child.Host = get_host()
+
+		if "host" in child:
+			child.host = get_host()
 
 		if child.name != current:
 			self.remove_child(child)

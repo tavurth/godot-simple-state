@@ -36,8 +36,8 @@ The state has a few functionalities, here is an example state:
 ```ddscript
 extends Node2D
 
-var Parent
 var States
+var Host
 
 func _state_enter(arg or not):
     pass
@@ -139,7 +139,7 @@ An argument is only passed if one was passed. (`StateMachine.goto("state", arg)`
 
 If the following variables exist on your state, they will be injected with dependencies as follows:
 
-`Parent` is the parent of `StateMachine` i.e. your character controller
+`Host` is the `NodePath` input into `StateMachine` i.e. your character controller
 
 `States` is the `StateMachine`
 
